@@ -160,8 +160,14 @@ body {
    HEADER
    ============================================================ */
 header {
+    position: relative;
+    z-index: 10;
     text-align: center;
     padding: 1rem;
+    pointer-events: none;
+}
+header h1, header p, #counter-display {
+    pointer-events: auto;
 }
 
 header h1 {
@@ -194,6 +200,7 @@ header p {
     position: fixed;
     bottom: 20px;
     right:  20px;
+    z-index: 1000;
     width:  55px;
     height: 55px;
     border-radius: 50%;
