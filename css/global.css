@@ -1,0 +1,389 @@
+:root {
+    --bg-color:   #050510;
+    --text-color: #ffffff;
+    --accent:     #88ccff;
+    --font-title: 'Dancing Script', cursive;
+    --font-body:  'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin:  0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    margin:  0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    background: url('../assets/images/Fondo_Universo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    overflow: hidden;
+    height: 100vh;
+    width:  100vw;
+}
+
+/* ============================================================
+   MAPA DE CONSTELACIÓN
+   - contain: strict → el navegador sabe que nada dentro afecta
+     al layout externo (elimina reflows en cascada).
+   ============================================================ */
+#constellation-map {
+    position: relative;
+    width:    100%;
+    height:   100vh;
+    perspective: 1500px;
+    overflow: hidden;
+    contain: strict; /* 🔥 antes era 'paint', strict es más agresivo */
+}
+
+/* ============================================================
+   ANIMACIÓN DE APARICIÓN DE ESTRELLAS
+   ============================================================ */
+@keyframes starAppear {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateZ(-1000px) scale(0.1);
+    }
+    30% { opacity: 1; }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateZ(0px) scale(1);
+    }
+}
+
+/* ============================================================
+   TRANSICIÓN DE VIAJE
+   ============================================================ */
+.traveling {
+    transform: scale(5) translateZ(500px);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ============================================================
+   GALAXIAS
+   - will-change solo en :hover → reserva capa GPU solo cuando
+     el usuario interactúa, no permanentemente para todos los elementos.
+   ============================================================ */
+.galaxy {
+    position:   absolute;
+    width:  100px;
+    height: 100px;
+    transform: translate(-20%, -20%);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    justify-content: center;
+    z-index: 5;
+    /* contain: layout evita que el hover de una galaxia
+       cause reflow en las demás */
+    contain: layout;
+}
+
+.galaxy img {
+    width:  70%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px var(--accent));
+}
+
+.galaxy:hover {
+    transform: scale(1.3);
+    will-change: transform; /* 🔥 solo cuando va a animarse */
+}
+
+.galaxy-label {
+    position:   relative;
+    bottom:    -10px;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.112);
+    color:      #ffffff;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.galaxy:hover .galaxy-label {
+    opacity: 1;
+}
+
+/* ============================================================
+   BOTÓN DE REGRESO
+   ============================================================ */
+.back-button {
+    position: fixed;
+    bottom: 25px;
+    left:   20px;
+    z-index: 1000;
+    background:     rgba(136, 204, 255, 0.2);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color:  white;
+    padding:       12px 18px;
+    border-radius: 30px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    background: rgba(136, 204, 255, 0.4);
+    transform:  translateY(-2px);
+}
+
+.back-button:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 480px) {
+    .back-button {
+        bottom: 20px;
+        left:   15px;
+        padding:   10px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header {
+    text-align: center;
+    padding: 1rem;
+}
+
+header h1 {
+    font-family: var(--font-title);
+    font-size: 3rem;
+    color: var(--accent);
+}
+
+header p {
+    font-family: var(--font-title);
+    font-size: 1.2rem;
+    color: white;
+}
+
+#counter-display {
+    font-family: var(--font-title);
+    font-size:   1.9rem;
+    margin-top:  5px;
+    color: var(--accent);
+    /* contain: strict en el padre se encarga,
+       pero aislamos el contador para que su actualización
+       por setInterval no cause reflow en el resto */
+    contain: content;
+}
+
+/* ============================================================
+   BOTÓN MÚSICA
+   ============================================================ */
+#music-control {
+    position: fixed;
+    bottom: 20px;
+    right:  20px;
+    width:  55px;
+    height: 55px;
+    border-radius: 50%;
+    border: none;
+    font-size: 1.5rem;
+    background:     rgba(136, 204, 255, 0.2);
+    color:          white;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    /* Promueve a su propia capa GPU desde el inicio
+       porque su posición fixed lo hace independiente del scroll */
+    transform: translateZ(0);
+}
+
+#music-control:hover {
+    background: rgba(136, 204, 255, 0.4);
+}
+
+/* ============================================================
+   ESTRELLAS
+   - transform: translate en lugar de left/top para evitar reflow
+   ============================================================ */
+.star {
+    position: absolute;
+    width:  12px;
+    height: 12px;
+    background:    white;
+    border-radius: 50%;
+    transform-origin: center center;
+    box-shadow: 0 0 10px 2px rgba(136, 204, 255, 0.7);
+    cursor:  pointer;
+    opacity: 0;
+    transform: translate(-50%, -50%) translateZ(-1000px) scale(0);
+    animation: starAppear 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    pointer-events: auto;
+    z-index: 10;
+    /* Cada estrella en su propia capa durante la animación */
+    will-change: transform, opacity;
+}
+
+/* Liberar capa GPU cuando la animación termina */
+.star.animated {
+    will-change: auto;
+}
+
+.star:hover {
+    box-shadow: 0 0 15px 4px rgba(255, 255, 255, 1);
+    background: #fff;
+}
+
+/* ============================================================
+   MODAL / OVERLAY
+   - transform: translateZ(0) promueve a capa GPU
+   ============================================================ */
+#photo-overlay {
+    z-index: 999;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    display:         none;
+    justify-content: center;
+    align-items:     center;
+    padding: 10px;
+    transform: translateZ(0); /* GPU layer para el overlay */
+}
+
+#photo-overlay:not(.hidden) {
+    display: flex;
+}
+
+/* ============================================================
+   CONTENEDOR DE FOTO
+   ============================================================ */
+.photo-container {
+    background:    white;
+    border-radius: 10px;
+    padding: 6px 6px 10px 6px;
+    width:     fit-content;
+    max-width: 95vw;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    perspective: 1000px;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    touch-action: pan-y;
+    transition: transform 0.25s ease;
+    z-index: 10;
+    /* Evita reflows de elementos externos */
+    contain: layout style;
+}
+
+.photo-container:hover {
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Capa de brillo */
+.photo-container::after {
+    content: '';
+    position: absolute;
+    inset:    0;
+    background: radial-gradient(
+        circle at var(--x, 50%) var(--y, 50%),
+        rgba(255, 255, 255, 0.35),
+        transparent 60%
+    );
+    opacity: var(--opacity, 0);
+    transition: opacity 0.2s;
+    pointer-events: none;
+}
+
+/* ============================================================
+   IMAGEN EN OVERLAY
+   - transition de opacidad controlada desde JS al cargar
+   ============================================================ */
+#overlay-img {
+    width:      100%;
+    max-height: 65vh;
+    object-fit: contain;
+    border-radius: 8px;
+    /* Evita que drag de imagen interfiera con el swipe */
+    pointer-events: none;
+    user-select:  none;
+    -webkit-user-drag: none;
+    /* transition gestionada por JS en onload */
+    transition: opacity 0.25s ease;
+}
+
+/* ============================================================
+   TEXTO DE LA NOTA
+   ============================================================ */
+#overlay-note {
+    margin-top: 8px;
+    padding:    8px 10px;
+    font-family: var(--font-title);
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    text-align: center;
+    color:      #222;
+    line-height: 1.4;
+    width:     100%;
+    max-width: 90%;
+    word-wrap: break-word;
+    /* min-height previene layout shift durante el typewriter */
+    min-height: 2em;
+}
+
+/* ============================================================
+   BOTÓN CERRAR
+   ============================================================ */
+#close-overlay {
+    position: absolute;
+    top:   10px;
+    right: 15px;
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    color:  white;
+    cursor: pointer;
+}
+
+/* ============================================================
+   SWIPE CARD
+   ============================================================ */
+#swipe-card {
+    touch-action: pan-y;
+    cursor:       grab;
+    user-select:      none;
+    -webkit-user-select: none;
+    -webkit-user-drag: none;
+}
+
+#swipe-card:active {
+    cursor: grabbing;
+}
+
+#swipe-card,
+#swipe-card * {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* ============================================================
+   LÍNEAS DE CONSTELACIÓN
+   ============================================================ */
+.line {
+    position: absolute;
+    height:   1px;
+    background: rgba(136, 204, 255, 0.18);
+    transform-origin: left center;
+    pointer-events: none;
+    z-index: 0;
+}

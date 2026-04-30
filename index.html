@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#050510">
+    <title>Nuestra Constelación - Gigi</title>
+
+    <!--
+        OPTIMIZACIÓN 1: preconnect
+        Le dice al navegador que abra la conexión TCP/TLS con Cloudinary
+        y con Google Fonts ANTES de que las necesite.
+        En GitHub Pages no hay server-push, esto es lo más cercano.
+    -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!--
+        OPTIMIZACIÓN 2: Fuentes con display=swap
+        Evita el FOIT (Flash of Invisible Text): el texto se muestra
+        con fuente del sistema mientras carga la fuente custom.
+    -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <!--
+        OPTIMIZACIÓN 3: CSS crítico en <head> (render-blocking mínimo)
+        El archivo CSS ya es pequeño, así que dejamos el link normal.
+        Si creciera mucho, considerar inlinear el CSS "above the fold".
+    -->
+    <link rel="stylesheet" href="css/global.css">
+
+    <!--
+        OPTIMIZACIÓN 4: preload de la imagen de fondo
+        Es el asset más grande y bloquea el First Contentful Paint.
+        Con preload el navegador la busca en paralelo al HTML.
+    -->
+    <link rel="preload" as="image" href="assets/images/Fondo_Universo.jpg">
+</head>
+
+<body>
+
+    <!--
+        OPTIMIZACIÓN 5: audio preload="none"
+        El audio no es crítico para el renderizado.
+        Cambiamos preload="auto" → preload="none" para que el navegador
+        NO descargue el MP3 (6–10 MB) al inicio.
+        Se cargará solo cuando el usuario pulse el botón de música.
+    -->
+    <audio id="bg-music" loop preload="none">
+        <source
+            src="https://res.cloudinary.com/dfi8emygz/video/upload/q_auto/f_auto/v1777105059/Great_Fairy_Fountain_m6nhsl.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <button id="music-control" aria-label="Controlar música">🔇</button>
+
+    <header>
+        <h1>Gigi y Ken</h1>
+        <p>Cada momento es una estrella en nuestro cielo...</p>
+        <h2 id="counter-display"></h2>
+    </header>
+
+    <main id="constellation-map"></main>
+
+    <div id="photo-overlay" class="hidden" role="dialog" aria-modal="true">
+        <button id="close-overlay" aria-label="Cerrar">&times;</button>
+
+        <div class="photo-container" id="swipe-card" draggable="false">
+            <div class="protector-wrapper">
+                <!--
+                    OPTIMIZACIÓN 6: decoding="async"
+                    El navegador decodifica la imagen en un hilo separado,
+                    sin bloquear el hilo principal (evita jank al abrir fotos).
+                -->
+                <img id="overlay-img" src="" alt="" decoding="async">
+            </div>
+            <p id="overlay-note"></p>
+        </div>
+    </div>
+
+    <!--
+        OPTIMIZACIÓN 7: confetti con defer
+        La librería no es crítica para el renderizado inicial.
+        defer la descarga en paralelo pero ejecuta después del DOM.
+    -->
+    <script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
+    <!--
+        OPTIMIZACIÓN 8: main.js al final del body (sin defer necesario)
+        Ya está al final, el DOM está listo cuando se ejecuta.
+    -->
+    <script src="main.js"></script>
+
+</body>
+
+</html>
