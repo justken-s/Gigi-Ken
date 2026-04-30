@@ -1,7 +1,7 @@
 /* ============================================================
    MAIN.JS — OPTIMIZADO PARA GITHUB PAGES
    - Lazy loading de imágenes
-   - Memoización de cálculos de galaxia
+   - Memorización de cálculos de galaxia
    - Batch DOM updates (DocumentFragment)
    - Debounce en eventos de movimiento
    - Intersection Observer para imágenes
@@ -40,7 +40,7 @@ const recuerdos = [
     { id: 26, mes: 'Febrero', fecha: '2026-02-01', x: 24, y: 54, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411090/IMG-20260201-WA0013_qkzch7.jpg', nota: 'Más momentos guardados.' },
     { id: 27, mes: 'Febrero', fecha: '2026-02-01', x: 26, y: 52, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777402340/IMG-20260201-WA0011_kicu4l.jpg', nota: 'Instante inolvidable.' },
     { id: 28, mes: 'Febrero', fecha: '2026-02-04', x: 25, y: 54, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097147/IMG-20260204-WA0022_agpj5v.jpg', nota: '4 de Febrero: Cuatro meses de nosotros.' },
-    { id: 29, mes: 'Febrero', fecha: '2026-02-04', x: 28, y: 52, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411147/IMG-20260204-WA0022_fn79sn.jpg', nota: 'Celebrando otro mes.' },
+    ////Foto repetida
     { id: 30, mes: 'Febrero', fecha: '2026-02-04', x: 30, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411132/IMG-20260204-WA0003_ow2hho.jpg', nota: 'Un recuerdo especial.' },
     { id: 31, mes: 'Febrero', fecha: '2026-02-04', x: 32, y: 48, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411121/IMG-20260204-WA0000_ukdkpr.jpg', nota: 'Otro instante del día.' },
     { id: 32, mes: 'Febrero', fecha: '2026-02-14', x: 50, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097175/IMG-20260214-WA0093_rssjpt.jpg', nota: '14 de Febrero: Nuestro primer San Valentín.' },
@@ -60,7 +60,7 @@ const recuerdos = [
     { id: 45, mes: 'Marzo', fecha: '2026-03-21', x: 44, y: 40, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411406/IMG-20260321-WA0114_1_axryth.jpg', nota: 'Recuerdo inolvidable.' },
     { id: 46, mes: 'Marzo', fecha: '2026-03-21', x: 46, y: 42, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411349/IMG-20260321-WA0094_fykbub.jpg', nota: 'Otro instante juntos.' },
     { id: 47, mes: 'Marzo', fecha: '2026-03-21', x: 48, y: 44, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411355/20260321_200114_py9sdq.jpg', nota: 'Más recuerdos del día.' },
-    { id: 48, mes: 'Marzo', fecha: '2026-03-21', x: 50, y: 46, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411420/IMG_20260321_231834_132_ysexab.jpg', nota: 'Un momento especial más.' },
+    /////Collage
     { id: 49, mes: 'Marzo', fecha: '2026-03-21', x: 52, y: 48, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411425/IMG_20260321_231838_393_dgqqza.jpg', nota: 'Recuerdo guardado.' },
     /* ========================= ABRIL 2026 ========================= */
     { id: 51, mes: 'Abril', fecha: '2026-04-02', x: null, y: null, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411467/IMG-20260402-WA0009_vmiivb.jpg', nota: 'Recuerdo.' },
@@ -77,10 +77,13 @@ const recuerdos = [
     { id: 62, mes: 'Abril', fecha: '2026-04-24', x: 45, y: 10, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097397/IMG-20260424-WA0036_twwvdb.jpg', nota: 'A un paso.' },
     { id: 63, mes: 'Abril', fecha: '2026-04-24', x: null, y: null, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411673/IMG-20260424-WA0038_ww5ias.jpg', nota: 'Recuerdo.' },
     { id: 64, mes: 'Abril', fecha: '2026-04-24', x: null, y: null, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411666/IMG-20260424-WA0049_ewwjgj.jpg', nota: 'Momento.' },
+    { id: 65, mes: 'Mayo', fecha: '2026-04-24', x: 50, y: 4,  imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097397/IMG-20260424-WA0036_twwvdb.jpg', nota: 'Los fiesteros.' },
     /* ========================= MAYO 2026 ========================= */
-    { id: 65, mes: 'Mayo', fecha: '2026-05-04', x: 50, y: 4,  imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097397/IMG-20260424-WA0036_twwvdb.jpg', nota: '6 meses.' },
-    { id: 66, mes: 'Mayo', fecha: '2026-05-04', x: 50, y: 40, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411446/WA_1774396882672_dv9ta6.jpg', nota: 'Mi terreneitor' },
-    { id: 50, mes: 'Mayo', fecha: '2026-05-01', x: 54, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411804/Picsart_26-03-21_23-05-41-854_okfvj0.jpg', nota: 'Edición especial del momento.' },
+    { id: 66, mes: 'Mayo', fecha: '2026-05-01', x: 50, y: 40, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411446/WA_1774396882672_dv9ta6.jpg', nota: 'Mi terreneitor' },
+    { id: 50, mes: 'Mayo', fecha: '2026-05-02', x: 54, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411804/Picsart_26-03-21_23-05-41-854_okfvj0.jpg', nota: 'Edición especial del momento.' },
+    { id: 67, mes: 'Mayo', fecha: '2026-05-03', x: 54, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777536910/20260430_021009-COLLAGE_2_uaarza.jpg', nota: '6 meses y contando cada vez mas.' },
+    ///Collage//
+    { id: 48, mes: 'Marzo', fecha: '2026-05-02', x: 50, y: 46, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411420/IMG_20260321_231834_132_ysexab.jpg', nota: 'Movie time.' },
     /* ========================= ESPECIALES ========================= */
     { id: 999, type: 'Pequeños', mes: 'Los pequeños', fecha: '0000-00-00', x: 50, y: 50, imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777414001/1777244433443_obg5xz.png', nota: 'Los pequeños ✨' }
 ];
@@ -127,8 +130,8 @@ const _posicionesCache = new Map();
 function generarPosicionesGalaxia(grupo, {
     centroX    = 50,
     minY       = 10,
-    maxY       = 90,
-    dispersionX = 85,
+    maxY       = 50,
+    dispersionX = 75,
     dispersionY = 15
 } = {}) {
     // Clave de caché basada en los ids del grupo
@@ -150,7 +153,7 @@ function generarPosicionesGalaxia(grupo, {
 
     dias.forEach((fecha, i) => {
         const items = porDia[fecha];
-        const baseY = minY + (i / Math.max(totalDias - 1, 1)) * (maxY - minY);
+        const baseY = maxY - (i / Math.max(totalDias - 1, 1)) * (maxY - minY);
 
         items.forEach((item, j) => {
             const offsetX = (Math.random() - 0.5) * dispersionX + (j - items.length / 2) * 4;
@@ -233,13 +236,13 @@ const galaxyImages = {
 };
 
 const posicionesGalaxias = {
-    '2025-11': { x: 10, y: 75 },
-    '2025-12': { x: 50, y: 70 },
-    '2026-01': { x: 80, y: 60 },
-    '2026-02': { x: 25, y: 45 },
-    '2026-03': { x: 60, y: 35 },
-    '2026-04': { x: 80, y: 20 },
-    '2026-05': { x: 45, y: 10 },
+    '2025-11': { x: 10, y: 60 },
+    '2025-12': { x: 50, y: 55 },
+    '2026-01': { x: 80, y: 50 },
+    '2026-02': { x: 25, y: 40 },
+    '2026-03': { x: 60, y: 30 },
+    '2026-04': { x: 80, y: 15 },
+    '2026-05': { x: 45, y: 5 },
     'Pequeños': { x: 10, y: 10 }
 };
 
