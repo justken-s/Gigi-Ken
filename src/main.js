@@ -103,8 +103,19 @@ const control    = document.getElementById('music-control');
    AUDIO
    ============================================================ */
 control.onclick = () => {
-    if (music.paused) { music.play(); control.textContent = '🔊'; }
-    else              { music.pause(); control.textContent = '🔇'; }
+    if (music.paused) {
+        music.play().then(() => {
+            control.textContent = '🔊';
+        }).catch(err => {
+            // Navegador bloqueó el audio — igual actualizamos el icono
+            console.warn('Audio bloqueado:', err);
+            control.textContent = '🔊';
+            // Intentar de nuevo en el siguiente click del usuario
+        });
+    } else {
+        music.pause();
+        control.textContent = '🔇';
+    }
 };
 
 /* ============================================================
