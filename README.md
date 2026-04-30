@@ -9,4 +9,3 @@ Es un mapa estelar interactivo donde cada estrella es un recuerdo real de nuestr
 - 📸 **Galería:** Muchos momentos únicos capturados en fotos.
 
 *Hecho con ❤️ por Kener.*
-
