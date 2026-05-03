@@ -366,6 +366,7 @@ setInterval(() => {
    GALERÍA
    ============================================================ */
 let currentIndex = 0;
+let _typeWriterTimer = null;
 
 function openPhoto(index) {
     currentIndex = index;
@@ -424,13 +425,23 @@ document.addEventListener('keydown', e => {
 /* ============================================================
    TYPEWRITER
    ============================================================ */
+// Reemplaza la función typeWriter completa
 function typeWriter(text) {
+    // Cancela cualquier typewriter que esté corriendo
+    if (_typeWriterTimer) {
+        clearTimeout(_typeWriterTimer);
+        _typeWriterTimer = null;
+    }
+
     let i = 0;
     note.textContent = '';
+
     function w() {
         if (i < text.length) {
             note.textContent += text[i++];
-            setTimeout(w, 18);
+            _typeWriterTimer = setTimeout(w, 18);
+        } else {
+            _typeWriterTimer = null;
         }
     }
     w();
