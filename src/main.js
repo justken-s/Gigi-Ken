@@ -72,9 +72,9 @@ const recuerdos = [
     { id: 65, mes: 'Mayo',  fecha: '2026-04-24', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777097397/IMG-20260424-WA0036_twwvdb.jpg', nota: 'Los fiesteros.' },
     /* ========================= MAYO 2026 ========================= */
     { id: 66, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777834696/20260503_125629-COLLAGE_m0sdpt.jpg', nota: 'Coffee Time' },
-    { id: 67, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411446/WA_1774396882672_dv9ta6.jpg', nota: 'Mi terreneitor' },
-    { id: 68, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411420/IMG_20260321_231834_132_ysexab.jpg', nota: 'Movie time.' },
-    { id: 69, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411804/Picsart_26-03-21_23-05-41-854_okfvj0.jpg', nota: 'Edición especial del momento.' },
+    { id: 67, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411446/WA_1774396882672_dv9ta6.jpg', nota: 'Mi terreneitor' },
+    { id: 68, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411420/IMG_20260321_231834_132_ysexab.jpg', nota: 'Movie time.' },
+    { id: 69, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411804/Picsart_26-03-21_23-05-41-854_okfvj0.jpg', nota: 'Edición especial del momento.' },
     { id: 70, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777536910/20260430_021009-COLLAGE_2_uaarza.jpg', nota: '6 meses y contando cada vez mas.' },
     
     /* ========================= ESPECIALES ========================= */
