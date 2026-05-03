@@ -1,15 +1,35 @@
+/* ============================================================
+   GLOBAL.CSS — OPTIMIZADO PARA iOS (iPhone 16 Pro / 13 Pro)
+   Referencia: 402×874px, DPR 3, Dynamic Island, Home Indicator
+   ============================================================ */
+
 :root {
     --bg-color:   #050510;
     --text-color: #ffffff;
     --accent:     #88ccff;
     --font-title: 'Dancing Script', cursive;
     --font-body:  'Poppins', sans-serif;
+
+    /* Safe areas — se rellenan con los valores reales del dispositivo.
+       En desktop son 0; en iPhone 16 Pro con Dynamic Island:
+       top ≈ 59px, bottom ≈ 34px */
+    --safe-top:    env(safe-area-inset-top,    0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left:   env(safe-area-inset-left,   0px);
+    --safe-right:  env(safe-area-inset-right,  0px);
 }
 
 * {
     box-sizing: border-box;
     margin:  0;
     padding: 0;
+    /* Elimina el tap highlight azul de iOS */
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    /* Evita el "bounce" de scroll en iOS que puede confundirse con swipe */
+    overscroll-behavior: none;
 }
 
 html, body {
@@ -23,22 +43,71 @@ body {
     background: url('../assets/images/Fondo_Universo.jpg') no-repeat center center fixed;
     background-size: cover;
     overflow: hidden;
-    height: 100vh;
+    /* svh = small viewport height → altura mínima garantizada
+       en Safari iOS, incluso cuando la barra de navegación está visible.
+       vh clásico saltaba porque Safari cambia la altura al hacer scroll. */
+    height: 100svh;
     width:  100vw;
 }
 
 /* ============================================================
+   HEADER
+   Padding top con safe-area para respetar la Dynamic Island.
+   ============================================================ */
+header {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    /* El padding-top base + la safe area de la Dynamic Island */
+    padding: calc(0.75rem + var(--safe-top)) 1rem 0.5rem;
+    pointer-events: none;
+}
+
+header h1,
+header p,
+#counter-display {
+    pointer-events: auto;
+}
+
+header h1 {
+    font-family: var(--font-title);
+    /* clamp: mínimo 1.8rem en móvil, ideal 3rem en desktop */
+    font-size: clamp(1.8rem, 7vw, 3rem);
+    color: var(--accent);
+    /* Rendering nítido en Retina (DPR 3) */
+    -webkit-font-smoothing: antialiased;
+}
+
+header p {
+    font-family: var(--font-title);
+    font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+    color: white;
+    -webkit-font-smoothing: antialiased;
+}
+
+#counter-display {
+    font-family: var(--font-title);
+    font-size: clamp(1.1rem, 4.5vw, 1.9rem);
+    margin-top: 5px;
+    color: var(--accent);
+    contain: content;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
    MAPA DE CONSTELACIÓN
-   - contain: strict → el navegador sabe que nada dentro afecta
-     al layout externo (elimina reflows en cascada).
+   svh en lugar de vh para evitar el salto de Safari.
    ============================================================ */
 #constellation-map {
     position: relative;
     width:    100%;
-    height:   100vh;
+    /* 100svh - altura del header (~110px aprox).
+       Usamos svh para que no haya salto cuando Safari
+       oculta/muestra su barra de navegación inferior. */
+    height: calc(100svh - 110px);
     perspective: 1500px;
     overflow: hidden;
-    contain: strict; /* 🔥 antes era 'paint', strict es más agresivo */
+    contain: strict;
 }
 
 /* ============================================================
@@ -67,13 +136,13 @@ body {
 
 /* ============================================================
    GALAXIAS
-   - will-change solo en :hover → reserva capa GPU solo cuando
-     el usuario interactúa, no permanentemente para todos los elementos.
+   Área touch mínima 44×44px (Apple HIG).
    ============================================================ */
 .galaxy {
-    position:   absolute;
-    width:  100px;
-    height: 100px;
+    position: absolute;
+    /* Mínimo 44px para Apple HIG, usamos 80px en móvil */
+    width:  80px;
+    height: 80px;
     transform: translate(-20%, -20%);
     cursor: pointer;
     transition: transform 0.3s ease;
@@ -82,9 +151,17 @@ body {
     align-items:    center;
     justify-content: center;
     z-index: 5;
-    /* contain: layout evita que el hover de una galaxia
-       cause reflow en las demás */
     contain: layout;
+    /* Área de toque extendida sin afectar layout visual */
+    -webkit-touch-callout: none;
+}
+
+/* En pantallas más grandes recuperamos el tamaño original */
+@media (min-width: 768px) {
+    .galaxy {
+        width:  100px;
+        height: 100px;
+    }
 }
 
 .galaxy img {
@@ -92,11 +169,19 @@ body {
     height: auto;
     object-fit: contain;
     filter: drop-shadow(0 0 10px var(--accent));
+    /* Evita que iOS muestre menú contextual al mantener pulsado */
+    -webkit-touch-callout: none;
+    pointer-events: none;
 }
 
 .galaxy:hover {
     transform: scale(1.3);
-    will-change: transform; /* 🔥 solo cuando va a animarse */
+    will-change: transform;
+}
+
+/* En touch, activamos escala con :active en lugar de :hover */
+.galaxy:active {
+    transform: scale(1.15);
 }
 
 .galaxy-label {
@@ -107,122 +192,122 @@ body {
     color:      #ffffff;
     padding: 2px 10px;
     border-radius: 10px;
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 2.5vw, 0.85rem);
     opacity: 0;
     transition: opacity 0.3s;
     pointer-events: none;
+    -webkit-font-smoothing: antialiased;
 }
 
-.galaxy:hover .galaxy-label {
+.galaxy:hover .galaxy-label,
+.galaxy:active .galaxy-label {
     opacity: 1;
 }
 
 /* ============================================================
    BOTÓN DE REGRESO
+   safe-area-inset-bottom → no queda tapado por el Home Indicator
    ============================================================ */
 .back-button {
     position: fixed;
-    bottom: 25px;
-    left:   20px;
+    bottom: calc(25px + var(--safe-bottom));
+    left: 50%;
+    transform: translateX(-50%); /* Centrado universal */
+    
     z-index: 1000;
-    background:     rgba(136, 204, 255, 0.2);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color:  white;
-    padding:       12px 18px;
-    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    /* Glassmorphism avanzado */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    
+    border: 1px solid rgba(136, 204, 255, 0.3);
+    color: var(--accent);
+    
+    min-height: 46px; 
+    padding: 10px 24px;
+    border-radius: 50px;
+    
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-weight: 500;
+    font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+    letter-spacing: 0.5px;
+    
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    /* Transición optimizada */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
 }
 
-.back-button:hover {
-    background: rgba(136, 204, 255, 0.4);
-    transform:  translateY(-2px);
-}
-
-.back-button:active {
-    transform: scale(0.95);
-}
-
-@media (max-width: 480px) {
-    .back-button {
-        bottom: 20px;
-        left:   15px;
-        padding:   10px 15px;
-        font-size: 0.8rem;
+/* Hover solo para dispositivos con mouse (Desktop) */
+@media (hover: hover) {
+    .back-button:hover {
+        background: rgba(136, 204, 255, 0.4);
+        transform: translateX(-50%) translateY(-3px);
+        color: #fff;
     }
 }
 
-/* ============================================================
-   HEADER
-   ============================================================ */
-header {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    padding: 1rem;
-    pointer-events: none;
-}
-header h1, header p, #counter-display {
-    pointer-events: auto;
-}
-
-header h1 {
-    font-family: var(--font-title);
-    font-size: 3rem;
-    color: var(--accent);
-}
-
-header p {
-    font-family: var(--font-title);
-    font-size: 1.2rem;
-    color: white;
-}
-
-#counter-display {
-    font-family: var(--font-title);
-    font-size:   1.9rem;
-    margin-top:  5px;
-    color: var(--accent);
-    /* contain: strict en el padre se encarga,
-       pero aislamos el contador para que su actualización
-       por setInterval no cause reflow en el resto */
-    contain: content;
+/* Efecto al tocar (Móvil y Desktop) */
+.back-button:active {
+    transform: translateX(-50%) scale(0.92);
+    background: rgba(136, 204, 255, 0.2);
+    transition: transform 0.1s;
 }
 
 /* ============================================================
    BOTÓN MÚSICA
+   safe-area-inset-bottom y right → no tapado por el Home Indicator
+   ni por el borde redondeado del iPhone.
+   Mínimo 44×44px para Apple HIG.
    ============================================================ */
 #music-control {
     position: fixed;
-    bottom: 20px;
-    right:  20px;
-    z-index: 1000;
+    bottom: calc(20px + var(--safe-bottom));
+    right:  calc(20px + var(--safe-right));
+    z-index: 1001;
+    /* 55px ya supera el mínimo de 44px de Apple */
     width:  55px;
     height: 55px;
     border-radius: 50%;
     border: none;
     font-size: 1.5rem;
-    background:     rgba(136, 204, 255, 0.2);
-    color:          white;
+    background:      rgba(136, 204, 255, 0.2);
+    color:           white;
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     cursor: pointer;
-    /* Promueve a su propia capa GPU desde el inicio
-       porque su posición fixed lo hace independiente del scroll */
     transform: translateZ(0);
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
 }
 
-#music-control:hover {
-    background: rgba(136, 204, 255, 0.4);
-}
+#music-control:hover  { background: rgba(136, 204, 255, 0.4); }
+#music-control:active { transform: scale(0.93) translateZ(0); }
 
 /* ============================================================
    ESTRELLAS
-   - transform: translate en lugar de left/top para evitar reflow
+   Área mínima touch de 44px aunque visualmente sean 12px.
+   Usamos ::before como área de toque invisible.
    ============================================================ */
+@keyframes starTwinkle {
+    0%, 100% {
+        opacity: 1;
+        box-shadow: 0 0 10px 2px rgba(136, 204, 255, 0.7);
+    }
+    50% {
+        opacity: 0.7;
+        box-shadow: 0 0 18px 4px rgba(136, 204, 255, 0.9);
+    }
+}   
 .star {
     position: absolute;
     width:  12px;
@@ -230,20 +315,40 @@ header p {
     background:    white;
     border-radius: 50%;
     transform-origin: center center;
+    
+    /* Borde nítido en Retina: 0.5px = 1px físico en DPR 2+ */
     box-shadow: 0 0 10px 2px rgba(136, 204, 255, 0.7);
+    
     cursor:  pointer;
     opacity: 0;
+    
+    /* Estado inicial para la animación de entrada */
     transform: translate(-50%, -50%) translateZ(-1000px) scale(0);
-    animation: starAppear 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    
+    /* 
+       Mantenemos starAppear para la entrada.
+       Añadimos starTwinkle con un delay de 1.5s (para que empiece al terminar de aparecer) 
+    */
+    animation: 
+        starAppear 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards,
+        starTwinkle var(--pulse-duration, 3s) ease-in-out 1.5s infinite alternate;
+    
     pointer-events: auto;
     z-index: 10;
-    /* Cada estrella en su propia capa durante la animación */
-    will-change: transform, opacity;
+    will-change: transform, opacity, box-shadow;
+    -webkit-touch-callout: none;
 }
 
-/* Liberar capa GPU cuando la animación termina */
-.star.animated {
-    will-change: auto;
+/* Área de toque extendida a 44×44px sin cambiar tamaño visual */
+.star::before {
+    content: '';
+    position: absolute;
+    top:  50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:  44px;
+    height: 44px;
+    border-radius: 50%;
 }
 
 .star:hover {
@@ -253,7 +358,7 @@ header p {
 
 /* ============================================================
    MODAL / OVERLAY
-   - transform: translateZ(0) promueve a capa GPU
+   svh para que cubra toda la pantalla en Safari iOS.
    ============================================================ */
 #photo-overlay {
     z-index: 999;
@@ -263,8 +368,12 @@ header p {
     display:         none;
     justify-content: center;
     align-items:     center;
-    padding: 10px;
-    transform: translateZ(0); /* GPU layer para el overlay */
+    /* Padding lateral respeta las curvas del iPhone */
+    padding: calc(10px + var(--safe-top)) calc(10px + var(--safe-right)) calc(10px + var(--safe-bottom)) calc(10px + var(--safe-left));
+    transform: translateZ(0);
+    /* Bloquea el scroll de fondo en iOS */
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
 }
 
 #photo-overlay:not(.hidden) {
@@ -273,13 +382,16 @@ header p {
 
 /* ============================================================
    CONTENEDOR DE FOTO
+   max-height con svh para que no se salga en Safari.
    ============================================================ */
 .photo-container {
     background:    white;
     border-radius: 10px;
     padding: 6px 6px 10px 6px;
     width:     fit-content;
-    max-width: 95vw;
+    max-width: min(95vw, calc(100vw - var(--safe-left) - var(--safe-right) - 20px));
+    /* svh evita que la foto tape el Home Indicator */
+    max-height: calc(92svh - var(--safe-top) - var(--safe-bottom));
     display:        flex;
     flex-direction: column;
     align-items:    center;
@@ -290,7 +402,6 @@ header p {
     touch-action: pan-y;
     transition: transform 0.25s ease;
     z-index: 10;
-    /* Evita reflows de elementos externos */
     contain: layout style;
 }
 
@@ -315,18 +426,18 @@ header p {
 
 /* ============================================================
    IMAGEN EN OVERLAY
-   - transition de opacidad controlada desde JS al cargar
+   max-height con svh para no tapar el Home Indicator.
    ============================================================ */
 #overlay-img {
     width:      100%;
-    max-height: 65vh;
+    /* svh en lugar de vh — Safari no salta */
+    max-height: calc(60svh - var(--safe-top));
     object-fit: contain;
     border-radius: 8px;
-    /* Evita que drag de imagen interfiera con el swipe */
     pointer-events: none;
     user-select:  none;
     -webkit-user-drag: none;
-    /* transition gestionada por JS en onload */
+    -webkit-touch-callout: none;
     transition: opacity 0.25s ease;
 }
 
@@ -337,29 +448,41 @@ header p {
     margin-top: 8px;
     padding:    8px 10px;
     font-family: var(--font-title);
-    font-size: clamp(1.1rem, 3vw, 1.4rem);
+    font-size: clamp(1rem, 4vw, 1.4rem);
     text-align: center;
     color:      #222;
     line-height: 1.4;
     width:     100%;
     max-width: 90%;
     word-wrap: break-word;
-    /* min-height previene layout shift durante el typewriter */
     min-height: 2em;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* ============================================================
    BOTÓN CERRAR
+   Mínimo 44×44px, respeta safe-area-inset-top (Dynamic Island).
    ============================================================ */
 #close-overlay {
     position: absolute;
-    top:   10px;
-    right: 15px;
+    /* top respeta la Dynamic Island */
+    top:   calc(10px + var(--safe-top));
+    right: calc(15px + var(--safe-right));
+    /* Área mínima 44×44px */
+    min-width:  44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 2.5rem;
     background: none;
     border: none;
     color:  white;
     cursor: pointer;
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
+    /* Padding extra para área de toque sin cambiar aspecto */
+    padding: 4px 8px;
 }
 
 /* ============================================================
@@ -368,14 +491,12 @@ header p {
 #swipe-card {
     touch-action: pan-y;
     cursor:       grab;
-    user-select:      none;
+    user-select:       none;
     -webkit-user-select: none;
-    -webkit-user-drag: none;
+    -webkit-user-drag:   none;
 }
 
-#swipe-card:active {
-    cursor: grabbing;
-}
+#swipe-card:active { cursor: grabbing; }
 
 #swipe-card,
 #swipe-card * {
@@ -393,4 +514,52 @@ header p {
     transform-origin: left center;
     pointer-events: none;
     z-index: 0;
+}
+
+/* ============================================================
+   MEDIA QUERIES — iPhone 16 Pro / 13 Pro
+   Breakpoint principal: 402px (16 Pro) y 390px (13 Pro)
+   ============================================================ */
+@media (max-width: 430px) {
+    header h1 { font-size: 1.9rem; }
+    header p  { font-size: 0.9rem; }
+    #counter-display { font-size: 1.1rem; }
+
+    /* Las galaxias un poco más grandes para touch */
+    .galaxy {
+        width:  88px;
+        height: 88px;
+    }
+
+    /* Foto más alta en móvil — más espacio para ver */
+    #overlay-img {
+        max-height: calc(62svh - var(--safe-top));
+    }
+}
+
+/* ============================================================
+   RETINA / DPR 3 — iPhone 16 Pro
+   Bordes y sombras de 0.33px = 1px físico en DPR 3.
+   ============================================================ */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .star {
+        /* Box-shadow más fino y nítido en pantallas Retina */
+        box-shadow: 0 0 8px 1.5px rgba(136, 204, 255, 0.8);
+    }
+
+    .photo-container {
+        /* Borde de 1px físico en Retina */
+        outline: 0.5px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .back-button {
+        border-width: 0.5px;
+    }
+}
+
+/* DPR 3 específico (iPhone 16 Pro, 15 Pro, 14 Pro, 13 Pro) */
+@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {
+    .star {
+        box-shadow: 0 0 6px 1px rgba(136, 204, 255, 0.9);
+    }
 }
