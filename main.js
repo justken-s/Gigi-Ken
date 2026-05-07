@@ -76,7 +76,12 @@ const recuerdos = [
     { id: 68, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411420/IMG_20260321_231834_132_ysexab.jpg', nota: 'Movie time.' },
     { id: 69, mes: 'Mayo', fecha: '2026-05-03', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777411804/Picsart_26-03-21_23-05-41-854_okfvj0.jpg', nota: 'Edición especial del momento.' },
     { id: 70, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777536910/20260430_021009-COLLAGE_2_uaarza.jpg', nota: '6 meses y contando cada vez mas.' },
-    
+    { id: 71, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778126950/IMG-20260504-WA0138_kcij8l.jpg', nota: 'El pastelero moment.' },
+    { id: 72, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778126997/IMG-20260504-WA0131_wacg0e.jpg', nota: 'Rojo.' },
+    { id: 73, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127110/IMG-20260504-WA0075_d4nflt.jpg', nota: 'Juntos por siempre.' },
+    { id: 74, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127122/20260504_175019_xwinw0.jpg', nota: '¿Un Boba?.' },
+    { id: 75, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127145/IMG-20260504-WA0090_jg9cn3.jpg', nota: 'Relojasos.' },
+    { id: 76, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127213/IMG-20260504-WA0118_cdvmpz.jpg', nota: 'Dentadura Colgate Luminous White.' },
     /* ========================= ESPECIALES ========================= */
     { id: 999, type: 'Pequeños', mes: 'Los pequeños', fecha: '0000-00-00', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777414001/1777244433443_obg5xz.png', nota: 'Los pequeños ✨' }
 ];
