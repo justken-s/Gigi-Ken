@@ -245,6 +245,7 @@ const galaxyImages = {
     '2026-03': 'assets/images/Marzo-26.png',
     '2026-04': 'assets/images/Abril-26.png',
     '2026-05': 'assets/images/Mayo-26.png',
+    '2026-06': 'assets/images/Junio-26.png',
     'Pequeños': 'assets/images/Gato_espacial.png'
 };
 
@@ -256,6 +257,7 @@ const posicionesGalaxias = {
     '2026-03': { x: 60, y: 30 },
     '2026-04': { x: 80, y: 15 },
     '2026-05': { x: 45, y: 5  },
+    '2026-06': { x: 15, y: 85 },
     'Pequeños': { x: 10, y: 10 }
 };
 
