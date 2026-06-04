@@ -82,6 +82,24 @@ const recuerdos = [
     { id: 74, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127122/20260504_175019_xwinw0.jpg', nota: '¿Un Boba?.' },
     { id: 75, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127145/IMG-20260504-WA0090_jg9cn3.jpg', nota: 'Relojasos.' },
     { id: 76, mes: 'Mayo', fecha: '2026-05-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1778127213/IMG-20260504-WA0118_cdvmpz.jpg', nota: 'Dentadura Colgate Luminous White.' },
+    { id: 77, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548386/IMG-20260507-WA0143_hfhjzv.jpg', nota: 'Zona' },
+    { id: 78, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548397/IMG-20260507-WA0145_ksbkxr.jpg', nota: 'Astro' },
+    { id: 79, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548415/IMG-20260508-WA0007_ucigor.jpg', nota: 'The perfect couple' },
+    { id: 80, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548432/IMG-20260508-WA0012_ccozeb.jpg', nota: 'La pareja perfecta' },
+    { id: 81, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548441/IMG-20260508-WA0024_q81zqs.jpg', nota: 'Papá Kener y Mamá Ivonne' },
+    { id: 82, mes: 'Mayo', fecha: '2026-05-07', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548452/IMG-20260510-WA0028_xamkt1.jpg', nota: 'Post cardio' },
+    { id: 83, mes: 'Mayo', fecha: '2026-05-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548464/IMG-20260510-WA0039_uxkuz1.jpg', nota: 'Dando vueltas en la piscina' },
+    { id: 84, mes: 'Mayo', fecha: '2026-05-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548472/IMG-20260510-WA0047_osno0k.jpg', nota: 'La flotadora y la piedra' },
+    { id: 85, mes: 'Mayo', fecha: '2026-05-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548480/IMG-20260510-WA0005_utxa2d.jpg', nota: 'Piscinando' },
+    { id: 86, mes: 'Mayo', fecha: '2026-05-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548495/IMG-20260510-WA0013_koyito.jpg', nota: 'Antes de la tragedia' },
+    { id: 87, mes: 'Mayo', fecha: '2026-05-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548516/IMG-20260510-WA0018_nim6mb.jpg', nota: 'La boca babeando' },
+    { id: 88, mes: 'Mayo', fecha: '2026-05-14', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548557/7e5d8ee366b9437d853443b64bf73008_qym5pb.jpg', nota: '3 Ingenieros viendo a la camara' },
+    { id: 89, mes: 'Mayo', fecha: '2026-05-28', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548627/20260528_142120_lijjl0.jpg', nota: 'Vestido 10/10' },
+    { id: 90, mes: 'Mayo', fecha: '2026-05-30', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548640/20260530_205327_001_d0b9nj.jpg', nota: 'F por nuestro estomago' },
+    { id: 91, mes: 'Mayo', fecha: '2026-05-31', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548662/20260531_181956_ccntfk.jpg', nota: 'Maccarones' },
+    /* ========================= MAYO 2026 ========================= */
+    { id: 92, mes: 'Mayo', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548689/IMG-20260602-WA0146_f1orjs.jpg', nota: 'Los callejeros' },
+    { id: 93, mes: 'Mayo', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548693/IMG-20260602-WA0145_cejmmm.jpg', nota: 'Nachos con birria' },
     /* ========================= ESPECIALES ========================= */
     { id: 999, type: 'Pequeños', mes: 'Los pequeños', fecha: '0000-00-00', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777414001/1777244433443_obg5xz.png', nota: 'Los pequeños ✨' }
 ];
