@@ -97,9 +97,23 @@ const recuerdos = [
     { id: 89, mes: 'Mayo', fecha: '2026-05-28', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548627/20260528_142120_lijjl0.jpg', nota: 'Vestido 10/10' },
     { id: 90, mes: 'Mayo', fecha: '2026-05-30', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548640/20260530_205327_001_d0b9nj.jpg', nota: 'F por nuestro estomago' },
     { id: 91, mes: 'Mayo', fecha: '2026-05-31', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548662/20260531_181956_ccntfk.jpg', nota: 'Maccarones' },
-    /* ========================= MAYO 2026 ========================= */
-    { id: 92, mes: 'Mayo', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548689/IMG-20260602-WA0146_f1orjs.jpg', nota: 'Los callejeros' },
-    { id: 93, mes: 'Mayo', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548693/IMG-20260602-WA0145_cejmmm.jpg', nota: 'Nachos con birria' },
+    /* ========================= JUNIO 2026 ========================= */
+    { id: 92, mes: 'Junio', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548689/IMG-20260602-WA0146_f1orjs.jpg', nota: 'Los callejeros' },
+    { id: 93, mes: 'Junio', fecha: '2026-06-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1780548693/IMG-20260602-WA0145_cejmmm.jpg', nota: 'Nachos con birria' },
+    
+    { id: 94, mes: 'Junio', fecha: '2026-06-10', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787703987/IMG-20260610-WA0061_mca2lr.jpg', nota: 'RESIDENTES' },
+    { id: 95, mes: 'Junio', fecha: '2026-06-25', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704023/IMG-20260625-WA0103_qykdv8.jpg', nota: 'Moncha de Happy Birthday adelantado' },
+    { id: 96, mes: 'Junio', fecha: '2026-06-26', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704035/20260628_031614_uluwmf.jpg', nota: 'Besito de buenas noches a los 3' },
+    /* ========================= JULIO 2026 ========================= */
+    { id: 97, mes: 'Julio', fecha: '2026-07-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704113/IMG-20260704-WA0095_nyk2hh.jpg', nota: 'Feliz Feliz cumpleaños' },
+    { id: 98, mes: 'Julio', fecha: '2026-07-04', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704122/IMG-20260704-WA0117_lpoodl.jpg', nota: 'Con el regalo en los regasos' },
+    { id: 99, mes: 'Julio', fecha: '2026-07-27', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704190/IMG-20260727-WA0040_ismqik.jpg', nota: 'Playa time' },
+    { id: 100, mes: 'Julio', fecha: '2026-07-27', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704223/IMG-20260727-WA0017_n3mcbd.jpg', nota: 'Enseñando nalgas' },
+    { id: 101, mes: 'Julio', fecha: '2026-07-27', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704244/IMG-20260727-WA0100_hpy1td.jpg', nota: 'Los menos locos' },
+    /* ========================= AGOSTO 2026 ========================= */
+    { id: 102, mes: 'Agosto', fecha: '2026-08-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704283/IMG-20260802-WA0107_wjs9g8.jpg', nota: 'Ventanas, pero de amor' },
+    { id: 103, mes: 'Agosto', fecha: '2026-08-02', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704290/IMG-20260802-WA0110_xomd6o.jpg', nota: 'Besos sabor a sal' },
+    { id: 104, mes: 'Agosto', fecha: '2026-08-06', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/v1787704316/20260806_133309_pbcymw.jpg', nota: 'Volviendo al infierno' },
     /* ========================= ESPECIALES ========================= */
     { id: 999, type: 'Pequeños', mes: 'Los pequeños', fecha: '0000-00-00', imgUrl: 'https://res.cloudinary.com/dfi8emygz/image/upload/q_auto/f_auto/v1777414001/1777244433443_obg5xz.png', nota: 'Los pequeños ✨' }
 ];
